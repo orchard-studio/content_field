@@ -648,8 +648,12 @@
 			$sectionid = $entry[0]->get('section_id');
 			$fm = new FieldManager();
 			$field = $fm->fetch(null,$sectionid);
+			$fieldid = array_keys($field);
+			$fieldid = $fieldid[0];
+			$field = $field[$fieldid];
+			
 			if(array_key_exists('type',$data) && !isset($data['type'])){				
-				//$link->setValue($field[$sectionid]->get('label').'-'.$entry_id);				
+				$link->setValue($field->get('label').'-'.$entry_id);				
 				return $link->generate();
 			}else{
 				return $entry_id;			
@@ -741,13 +745,18 @@
 		 * @return array|null
 		 */
 		 public function prepareTextValue($data, $entry_id){	
+			
 			$em = new EntryManager();
 			$entry = $em->fetch($entry_id);
 			$sectionid = $entry[0]->get('section_id');
 			$fm = new FieldManager();
 			$field = $fm->fetch(null,$sectionid);
+			$fieldid = array_keys($field);
+			$fieldid = $fieldid[0];
+			$field = $field[$fieldid];
 			if(array_key_exists('type',$data) && !isset($data['type'])){				
-				return $link; // $field[$sectionid]->get('label').'-'.$entry_id;				
+				//$link->setValue($field->get('label').'-'.$entry_id);
+				return $field->get('label').'-'.$entry_id;				
 			}else{
 				return $entry_id;			
 			
